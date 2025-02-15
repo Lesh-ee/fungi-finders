@@ -1,9 +1,9 @@
 /* 
 this order of importance isn't strictly necessary
 as it will match the order in which the layers in the code are placed
-but this helps keep track of all of them and feels like good reassurance 
+but this helps keep track of all of them at a glance 
 */
-@layer reset, base, custom-properties;
+@layer reset, base, custom-properties, utilities;
 
 @layer reset {
   *,
@@ -203,7 +203,7 @@ but this helps keep track of all of them and feels like good reassurance
   }
 
   body {
-    font-size: var(--font-size-heading-rg);
+    font-size: var(--font-size-rg);
     color: var(--text-main);
     background-color: var(--background-main);
   }
@@ -234,5 +234,17 @@ but this helps keep track of all of them and feels like good reassurance
   a:hover,
   a:focus-visible {
     color: var(--text-brand-light);
+  }
+}
+
+@layer utilities {
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 }
