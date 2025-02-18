@@ -1,10 +1,4 @@
-/* 
-this order of importance isn't strictly necessary
-as it will match the order in which the layers in the code are placed
-but this helps keep track of all of them at a glance 
-*/
-@layer reset, base, custom-properties, utilities;
-
+/*basic essentials*/
 @layer reset {
   *,
   *::before,
@@ -81,10 +75,8 @@ but this helps keep track of all of them at a glance
   }
 }
 
+/*font, colors, and generic html tags*/
 @layer base {
-}
-
-@layer custom-properties {
   :root {
     /*
     the hundreds are to denote brightness
@@ -237,6 +229,36 @@ but this helps keep track of all of them at a glance
   }
 }
 
+/*non base level html classes*/
+@layer layout {
+  .wrapper {
+    --wrapper-max-width: 1130px;
+    &[data-width="narrow"] {
+      --wrapper-max-width: 720px;
+    }
+    &[data-width="wide"] {
+      --wrapper-max-width: 1330px;
+    }
+
+    max-width: var(--wrapper-max-width);
+
+    /*
+    we only want this wrapper to add spacing at the left and right edge
+    so -inline ensures we aren't doing anything to the top or bottom
+    */
+    margin-inline: auto;
+    padding-inline: 1rem;
+
+    /*
+    not always necessary bot good if you're getting numbers from figma files
+    if this isn't done then the figma sizes may not have accounted for padding
+    causing all sorts of small infuriations
+    */
+    box-sizing: content-box;
+  }
+}
+
+/*customized properties, say for disability access*/
 @layer utilities {
   .visually-hidden {
     clip: rect(0 0 0 0);
