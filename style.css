@@ -79,6 +79,7 @@
 @layer base {
   :root {
     /*
+    all the colors from figma
     the hundreds are to denote brightness
     500 being the middle option
     this allows equal variance either direction
@@ -107,6 +108,7 @@
     --ff-heading: "Outfit", sans-serif;
 
     /*
+    all the font sizes from figma
     the hundreds here are a similar concept to the colors
     but determine size instead of brightness
     however the default font size i.e. body text is 400
@@ -115,9 +117,7 @@
     worst case scenario, thats what 50's are for
 
     why are fs 900 and 1000 the same rem?
-    because if the screen is small, you probably dont need utterly massive text
-    but we'll be using the same fs-1000 attribute for certain texts
-    regardless of whether the screen is wide or thin
+    because they won't be when the screen is big enough
     */
 
     --fs-300: 0.875rem;
@@ -154,7 +154,7 @@
   which is of course 100% essential to core functionality
 
   the purpose of this chunk is to seperate my references in code and primitives
-  this  way if normal text needs to be a new color
+  this  way if say normal text needs to be a new color
   but I still need the old color for something else
   I dont have to go to every instance of my normal text and change it
   */
@@ -189,17 +189,23 @@
     --border-radius-lg: var(--br-300);
   }
 
+  /*
+  setting the font & spacing for everything in the <html> (everything)
+  again with a degree of seperation between primitives
+  */
   html {
     font-family: var(--ff-body);
     line-height: 1.6;
   }
 
+  /*sets font rules in the <body> (everything within the <html>)*/
   body {
     font-size: var(--font-size-rg);
     color: var(--text-main);
     background-color: var(--background-main);
   }
 
+  /*changing font for headers, higher specificity means preference over .html*/
   h1,
   h2,
   h3,
@@ -227,10 +233,99 @@
   a:focus-visible {
     color: var(--text-brand-light);
   }
+
+  /*gives images those lovely rounded corners*/
+  img {
+    border-radius: var(--border-radius-lg);
+  }
 }
 
 /*non base level html classes*/
 @layer layout {
+  /*
+  this absolute atrocity is known as a "lobotomized owl"
+  (man programmers are perfect with naming things)
+  it just means it applies to everything but the first child
+  but there's no specificity like with :not(:first-child)
+  also it's way less to type
+  */
+  /*
+  what flow does (and Do do this on all websites)
+  is cause header text to have a bit more padding
+  */
+  .flow * + * {
+    margin-block-start: var(--flow-space, 1em);
+  }
+
+  .grid-flow {
+    display: grid;
+    gap: var(--grid-flow-gap, 1rem);
+  }
+
+  /*
+  put this in a div, and all of the direct children divs within
+  will be split into columns of equal width
+  no matter how many child divs sit within
+  */
+  .equal-columns {
+    /*
+    this sets up the grid on which the columns exist
+    CSS defaults to the first extant listed var
+    so if --e-c-g doesn't exist, gap becomes 1rem
+    */
+    display: grid;
+    gap: var(--equal-columns-gap, 1rem);
+    align-items: var(--equal-columns-vert-alignment, stretch);
+
+    /*
+    this is where the content actually turns into multiple adjacent columns
+    if the screen isnt wide enough, these wont trigger
+    and all the "columns" will just exist top-down as 1 big column
+    */
+    @media (width > 760px) {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+
+    /*
+    and now to make it so --e-c-g can be real sometimes
+    those times being when we want a larger gap between columns
+    though nothing is stopping me from making a data-gap="narrow" later on
+    (except the figma file)
+    */
+    &[data-gap="large"] {
+      --equal-columns-gap: 2rem;
+    }
+
+    /*
+    instead of the stretch vertical alignemnt i.e. the column's tops are flush
+    all the columns will be centered around the largest's vertical center
+    */
+    &[data-alignment="centered"] {
+      --equal-columns-vert-alignment: center;
+    }
+  }
+
+  /*this exists to seperate sections of text/img's*/
+  .section {
+    /*
+    we only want this wrapper to add spacing at the top and bottom
+    so -block ensures we aren't doing anything to the left or right
+    */
+    --section-padding-block: 3.75rem;
+
+    @media (width > 760px) {
+      --section-padding-block: 8rem;
+
+      &[data-padding="compact"] {
+        --section-padding-block: 4.5rem;
+      }
+    }
+
+    padding-block: var(--section-padding-block);
+  }
+
+  /*wrappers exist to prevent stuff from rubbing on the screen edge*/
   .wrapper {
     --wrapper-max-width: 1130px;
     &[data-width="narrow"] {
@@ -258,8 +353,53 @@
   }
 }
 
-/*customized properties, say for disability access*/
+@layer components {
+  /*
+  this is to prevent the header from rubbing agaisnt the top of the screen
+  much like the wrapper prevents stuff from touching the sides
+  */
+  .site-header {
+    padding-block: 1rem;
+  }
+
+  /*this gets the header (img & links) on opposite sides of the page*/
+  .site-header__inner {
+    display: flex;
+    justify-content: space-between;
+
+    /*in case they get too close (2rem apart) they move one over the other*/
+    flex-wrap: wrap;
+    /*
+    the 1 refers to the spacing above/below
+    this is done so when the text is moved under the img
+    it looks as far apart as it was when it was next to the img
+    */
+    gap: 1rem 2rem;
+  }
+
+  /*long story short, turns the ul from top-down to left-right*/
+  .primary-nav {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      /*again, half size full size to make wrapping look spacing consistent*/
+      gap: 0.5rem 1rem;
+    }
+  }
+}
+
+/*
+utility classes
+say for disability access
+or for chucking 1-3 from a large group of several css classes into html classes
+*/
 @layer utilities {
+  /*
+  any chunk of text can sit inside something with this class
+  this way it won't be seen and say, make buttons absolutely massive
+  yet a vision impaired person can use their e-reader
+  and fully understand what happens if they press said button
+  */
   .visually-hidden {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -268,5 +408,57 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+
+  /*
+  some additional utility classes
+  for when several chunks are very similar but not the same
+  maybe 1-2 stats of overlap
+  */
+  .text-center {
+    text-align: center;
+  }
+  .text-brand {
+    color: var(--text-brand);
+  }
+  .text-high-contrast {
+    color: var(--text-high-contrast);
+  }
+
+  .section-title {
+    font-size: var(--font-size-heading-rg);
+  }
+
+  .bg-base {
+    background-color: var(--background-base);
+  }
+  .bg-light {
+    background-color: var(--background-light);
+  }
+  .bg-extra-light {
+    background-color: var(--background-extra-light);
+  }
+  .bg-dark {
+    background-color: var(--background-dark);
+  }
+  .bg-extra-dark {
+    background-color: var(--background-extra-dark);
+  }
+
+  .bg-accent {
+    background-color: var(--background-accent-dark);
+  }
+
+  .font-size-sm {
+    font-size: var(--font-size-sm);
+  }
+  .font-size-regular {
+    font-size: var(--font-size-regular);
+  }
+  .font-size-md {
+    font-size: var(--font-size-md);
+  }
+  .font-size-lg {
+    font-size: var(--font-size-lg);
   }
 }

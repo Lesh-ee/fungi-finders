@@ -18,22 +18,24 @@
     <body>
       <header class="site-header">
         <div class="wrapper" data-width="wide">
-          <img src="resources/assets/fungi-finders.svg" alt="Fungi Finders" />
-          <nav class="primary-nav">
-            <ul role="list">
-              <li><a href="/">Discover</a></li>
-              <li><a href="#">Mushroom Guide</a></li>
-              <li><a href="#">FAQ</a></li>
-            </ul>
-          </nav>
+          <div class="site-header__inner">
+            <img src="resources/assets/fungi-finders.svg" alt="Fungi Finders" />
+            <nav class="primary-nav">
+              <ul role="list">
+                <li><a href="/">Discover</a></li>
+                <li><a href="#">Mushroom Guide</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </header>
       <main>
-        <section class="hero">
+        <section class="hero section flow" data-padding="compact">
           <div class="wrapper">
             <h1>Discover the World of Mushroom Foraging</h1>
           </div>
-          <div class="wrapper" data-width="narrow">
+          <div class="wrapper flow" data-width="narrow">
             <p>
               Mushroom foraging is the art and science of identifying and
               collecting wild mushrooms.
@@ -51,19 +53,30 @@
           </div>
         </section>
 
-        <section>
+        <section class="section">
           <div class="wrapper">
-            <h2>The joys of mushroom foraging</h2>
-            <p>
-              Foraging for mushrooms can be a rewarding experience for many
-              reasons. People may venture off into the woods to forage for
-              mushrooms because it allows them to connect with nature, enjoy the
-              thrill of the hunt, and savor the satisfaction of finding a hidden
-              culinary treasure.
-            </p>
+            <div class="flow">
+              <h2 class="section-title">The joys of mushroom foraging</h2>
+              <p>
+                Foraging for mushrooms can be a rewarding experience for many
+                reasons. People may venture off into the woods to forage for
+                mushrooms because it allows them to connect with nature, enjoy
+                the thrill of the hunt, and savor the satisfaction of finding a
+                hidden culinary treasure.
+              </p>
+              <!--
+              okay I know this <p> looks dumb
+              but putting spacing between the text and image cards has been IMPOSSIBLE
+              well not impossible, but when I do it not all the cards are in line with each other
+              or the text in each card is double-flowed (overflowed, if one will)
+              or both! in fact its usually both
+              so screw it, type in 7 characters and call it a day
+              -->
+              <p></p>
+            </div>
             <!-- 3 columns -->
-            <div>
-              <div class="card">
+            <div class="equal-columns">
+              <div class="card grid-flow">
                 <img
                   src="resources/assets/outdoor-exploration.webp"
                   alt="Tightly grouped brown mushrooms growing up a mossy tree trunk"
@@ -78,7 +91,7 @@
                   every log.
                 </p>
               </div>
-              <div class="card">
+              <div class="card grid-flow">
                 <img
                   src="resources/assets/botanical-expertise.webp"
                   alt="Wild mushrooms on a table"
@@ -93,7 +106,7 @@
                   role fungi play in ecosystem health.
                 </p>
               </div>
-              <div class="card">
+              <div class="card grid-flow">
                 <img
                   src="resources/assets/culinary-delight.webp"
                   alt="A plate of food with mushrooms on top"
@@ -112,9 +125,14 @@
           </div>
         </section>
 
-        <section>
-          <div class="wrapper" data-width="narrow">
-            <h2>Start your <span>Foraging Adventure!</span></h2>
+        <section class="section bg-accent text-center" data-padding="compact">
+          <div
+            class="wrapper flow font-size-lg text-high-contrast"
+            data-width="narrow"
+          >
+            <h2 class="section-title">
+              Start your <span class="text-brand">Foraging Adventure!</span>
+            </h2>
             <p>
               Whether you're seeking a deeper connection with nature, a new
               outdoor hobby, or simply love the idea of finding your own food,
@@ -123,18 +141,22 @@
           </div>
         </section>
 
-        <section>
+        <section class="section bg-extra-dark">
           <!-- 2 columns -->
           <div class="wrapper" data-width="wide">
-            <div>
+            <div
+              class="equal-columns"
+              data-gap="large"
+              data-alignment="centered"
+            >
               <div>
                 <img
                   src="resources/assets/get-to-know.webp"
                   alt="A man on his hands and knees harvesting a wild mushroom in the forrest"
                 />
               </div>
-              <div>
-                <h2>Get to know your mushrooms</h2>
+              <div class="flow font-size-lg">
+                <h2 class="section-title">Get to know your mushrooms</h2>
                 <p>
                   Successful and safe mushroom foraging begins with a deep
                   understanding of the species you'll encounter in the wild -
@@ -156,12 +178,16 @@
           </div>
         </section>
 
-        <section>
+        <section class="section">
           <!-- 2 columns -->
           <div class="wrapper" data-width="wide">
-            <div>
-              <div>
-                <h2>Connect with Nature</h2>
+            <div
+              class="equal-columns"
+              data-gap="large"
+              data-alignment="centered"
+            >
+              <div class="flow font-size-lg">
+                <h2 class="section-title">Connect with Nature</h2>
                 <p>
                   Experience the beauty of the great outdoors while foraging for
                   mushrooms with fellow enthusiasts.
@@ -174,12 +200,12 @@
                   </span>
                 </a>
               </div>
-            </div>
-            <div>
-              <img
-                src="resources/assets/nature.webp"
-                alt="A small white mushroom growing on a mossy forrest floor"
-              />
+              <div>
+                <img
+                  src="resources/assets/nature.webp"
+                  alt="A small white mushroom growing on a mossy forrest floor"
+                />
+              </div>
             </div>
           </div>
         </section>
