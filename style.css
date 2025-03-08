@@ -377,6 +377,29 @@
     gap: 1rem 2rem;
   }
 
+  .site-footer {
+    text-align: center;
+    padding-block: 2rem;
+    display: grid;
+    gap: 2rem;
+    background-color: var(--background-dark);
+
+    a {
+      color: var(--text-main);
+    }
+
+    a:hover,
+    a:focus-visible {
+      color: var(--text-brand-light);
+    }
+  }
+
+  .site-footer__title {
+    font-size: var(--font-size-md);
+    font-family: var(--ff-heading);
+    font-weight: 700;
+  }
+
   /*long story short, turns the ul from top-down to left-right*/
   .primary-nav {
     ul {
@@ -385,6 +408,87 @@
       /*again, half size full size to make wrapping look spacing consistent*/
       gap: 0.5rem 1rem;
     }
+  }
+
+  /*too much stuff needs to happen in the hero to just use utility classes*/
+  .hero {
+    text-align: center;
+    font-size: var(--font-size-md);
+    color: var(--text-high-contrast);
+    background-image: url(resources/assets/hero.webp);
+    background-size: cover;
+    background-position: center;
+  }
+
+  /*
+  because this is being used inside the hero
+  it  essentially inherits everything the hero does
+  unless this explicitly overrides it
+  */
+  .hero__title {
+    font-size: var(--font-size-heading-lg);
+
+    span {
+      font-size: var(--font-size-heading-xl);
+      color: var(--text-brand);
+
+      /*
+      this just keeps the span on its own line
+      could be problematic but should be fine since text-wrap: balanced is used
+      */
+      display: block;
+    }
+  }
+
+  /*
+  honestly this *could* be some utility classes
+  but with how many times the card's gonna be used
+  and the fact that there's specifics with img's and an inheritor class
+  it's infinitely easier to be a unique class
+  */
+  .card {
+    display: grid;
+    gap: var(--card-gap, 1rem);
+    padding: 1rem;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-lg);
+
+    /*
+    make sure internal things with a border radius have a smaller one
+    otherwise the br's look inconsistent
+    */
+    img {
+      border-radius: var(--border-radius-md);
+    }
+  }
+
+  .card__title {
+    font-size: var(--card-title-fs, var(--font-size-heading-sm));
+    color: var(--card-title-color, var(--text-brand));
+  }
+
+  /*
+  why not edit the html button class?
+  this is for links, it just makes them look like buttons
+  */
+  .button {
+    display: inline-flex;
+    background-color: var(--background-accent-main);
+    font-family: var(--ff-heading);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+
+    /*this is what turns the mouse into the hand*/
+    cursor: pointer;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    color: var(--text-high-contrast);
+    background-color: var(--background-accent-light);
   }
 }
 
