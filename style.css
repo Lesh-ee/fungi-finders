@@ -361,6 +361,29 @@
 
 @layer components {
   /*
+    literally ctrl c+v from visiually hidden
+    this just says that when it isn't tabbed over, nobody will see this
+    */
+  .skip-to-main:not(:focus) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /*while it is tabbed over, this is how it will look*/
+  .skip-to-main {
+    position: absolute;
+    background: var(--background-extra-dark);
+    padding: 1rem;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+  }
+
+  /*
   this is to prevent the header from rubbing agaisnt the top of the screen
   much like the wrapper prevents stuff from touching the sides
   */
