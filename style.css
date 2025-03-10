@@ -234,7 +234,13 @@
     color: var(--text-brand-light);
   }
 
-  /*gives images those lovely rounded corners*/
+  /*
+  gives images those lovely rounded corners
+  watch out! this caused an issue with the primary nav
+  took a while to realize this is why the button looked weird
+  since that's the only img that wants no radius I specified br=0 there
+  but this is just something to look out for
+  */
   img {
     border-radius: var(--border-radius-lg);
   }
@@ -400,13 +406,89 @@
     font-weight: 700;
   }
 
-  /*long story short, turns the ul from top-down to left-right*/
+  [aria-controls="prime-nav"] {
+    z-index: 100;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+
+    img {
+      border-radius: 0;
+    }
+    display: none;
+  }
+
   .primary-nav {
+    /*long story short, turns the ul from top-down to left-right*/
     ul {
       display: flex;
       flex-wrap: wrap;
       /*again, half size full size to make wrapping look spacing consistent*/
       gap: 0.5rem 1rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /*
+    transforms the typical primary nav
+    from side by side words to a mobile-friendly top-down menu
+    */
+    @media (width < 760px) {
+      display: none;
+      /*idk man the colors just dont work soimetimes*/
+      background-color: var(--background-accent-main);
+      /*side to side*/
+      padding-inline: 2rem;
+      /*up and down*/
+      padding-block: 1.5rem;
+      /*values go clockwise starting @ top left, this changes the bottom left*/
+      border-radius: 0 0 0 var(--border-radius-lg);
+      z-index: 10;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: var(--font-size-lg);
+      font-weight: bold;
+      font-family: var(--ff-heading);
+
+      ul {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /*seperation bars between each list element*/
+      li + li {
+        margin-block-start: 1.5rem;
+        padding-block-start: 1.5rem;
+        border-top: 2px solid var(--background-accent-light);
+      }
+    }
+  }
+
+  @media (width < 760px) {
+    /*
+    since clicking the hambeurger toggles aria-expanded
+    if it is true, this will activate
+    dipslay: block will override display: none in the typical @media
+    and allow the primary nav to be seen
+    */ /*
+    + checks the immediate thing which precedes itself
+    so if an <a> was added between the button and list the + would break
+    ~ checks for anything that precedes itself
+    so it will work no matter how much is between the two
+    */
+    [aria-expanded="true"] ~ .primary-nav {
+      display: block;
+    }
+
+    /*
+    this re-adds the button when the screen is smaller
+    I guess this whole media query is dedicated to making things reappear
+    */
+    [aria-controls="prime-nav"] {
+      display: block;
     }
   }
 
