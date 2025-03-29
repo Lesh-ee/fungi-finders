@@ -256,7 +256,7 @@
   also it's way less to type
   */
   /*
-  what flow does (and Do do this on all websites)
+  what flow does (and do please do this on all websites)
   is cause header text to have a bit more padding
   */
   .flow * + * {
@@ -266,6 +266,25 @@
   .grid-flow {
     display: grid;
     gap: var(--grid-flow-gap, 1rem);
+  }
+
+  /*normal grid, but now "autonomous"!*/
+  .grid-auto-fit {
+    --auto-fit-min-col-size: 250px;
+    display: grid;
+    gap: 1rem;
+    /*
+    this determines the amount of columns
+    repeat determines quantity
+    auto-fit figures out what's a good width of the column based on our minmax
+    max is easy: 1fr means take up the whole screen
+    min() is there to say "be the width of the left value (here a var = 250px)
+      unless it's so big it goes off screen, then use 100% of screen width"
+    */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(var(--auto-fit-min-col-size), 100%), 1fr)
+    );
   }
 
   /*
@@ -546,6 +565,16 @@
   }
 
   /*
+  exactly 1 are with cards in it needs to modify some aspects of said card
+  all cards within a section of this class will inherit these stats
+  */
+  .mushroom-guide {
+    --card-title-fs: var(--font-size-lg);
+    --card-title-color: var(--text-high-contrast);
+    --card-gap: 0.75rem;
+  }
+
+  /*
   honestly this *could* be some utility classes
   but with how many times the card's gonna be used
   and the fact that there's specifics with img's and an inheritor class
@@ -570,6 +599,44 @@
   .card__title {
     font-size: var(--card-title-fs, var(--font-size-heading-sm));
     color: var(--card-title-color, var(--text-brand));
+  }
+
+  .card__note {
+    background-color: var(--background-extra-light);
+    padding: 0.75rem;
+    border-radius: var(--border-radius-md);
+  }
+
+  .tag-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    li {
+      border-radius: var(--border-radius-sm);
+      padding: 0rem 0.25rem;
+      background-color: var(--tag-bg, red);
+
+      font-family: var(--ff-heading);
+      color: var(--text-high-contrast);
+      font-size: var(--font-size-sm);
+    }
+
+    [data-edible="edible"] {
+      --tag-bg: var(--background-accent-main);
+    }
+    [data-edible="toxic"] {
+      --tag-bg: var(--clr-red-500);
+    }
+    [data-season="summer"] {
+      --tag-bg: var(--background-accent-main);
+    }
+    [data-season="spring"] {
+      --tag-bg: var(--clr-teal-500);
+    }
+    [data-season="fall"] {
+      --tag-bg: var(--clr-orange-500);
+    }
   }
 
   /*
