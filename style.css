@@ -581,7 +581,8 @@
   it's infinitely easier to be a unique class
   */
   .card {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--card-gap, 1rem);
     padding: 1rem;
     background-color: var(--background-light);
@@ -597,11 +598,28 @@
   }
 
   .card__title {
+    padding-bottom: 0.75rem;
     font-size: var(--card-title-fs, var(--font-size-heading-sm));
     color: var(--card-title-color, var(--text-brand));
   }
 
+  /*
+  okay SO. this shouldn't need to be here and quite frankly idk why it does
+  as far as the tutorial is concerned, this doesn't exist
+  the tutorial states that once the .card is a flexbox, adding margin-block-start: auto to the .card__note would push the card__note to the bottom
+  now normally yeah, that just works
+  maybe it's cause I'm in firefox (but I doubt it because I messed around the Inspect element to match chrome functionality and that did jack all)
+  but regardless, googling didn't help either
+  so after a *very* calm 2 hour conversation with chatGPT, adding this and a bit of padding to the bottom of card__title is all I need
+  why? WHO KNOWS! asking chatgpt produces borderline schizo results
+  but screw it, it works, minimum viable product achieved
+  */
+  .card__content {
+    flex-grow: 1;
+  }
+
   .card__note {
+    margin-block-start: auto;
     background-color: var(--background-extra-light);
     padding: 0.75rem;
     border-radius: var(--border-radius-md);
