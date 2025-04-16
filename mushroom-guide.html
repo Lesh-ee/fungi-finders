@@ -22,7 +22,12 @@
         <div class="wrapper" data-width="wide">
           <div class="site-header__inner">
             <img src="resources/assets/fungi-finders.svg" alt="Fungi Finders" />
-            <button aria-controls="prime-nav" aria-expanded="false">
+            <button
+              aria-controls="prime-nav"
+              aria-expanded="true"
+              nav-js="false"
+              hidden
+            >
               <span class="visually-hidden">Menu</span>
               <img src="resources/assets/hamburger.svg" />
             </button>
@@ -96,13 +101,13 @@
             <div class="flow">
               <h2 class="section-title">Get to know your mushrooms</h2>
               <div class="flex-group">
-                <select>
+                <select id="season" hidden>
                   <option value="all">Season: All</option>
                   <option value="spring">Season: Spring</option>
                   <option value="summer">Season: Summer</option>
                   <option value="fall">Season: Fall</option>
                 </select>
-                <select>
+                <select id="edible" hidden>
                   <option value="all">Type: All</option>
                   <option value="edible">Edible</option>
                   <option value="toxic">Toxic</option>
@@ -110,7 +115,7 @@
               </div>
 
               <!-- grid of mushrooms -->
-              <div class="grid-auto-fit">
+              <div class="grid-auto-fill">
                 <div class="card">
                   <div class="card__content">
                   <h3 class="card__title">Chanterelle</h3>
@@ -417,16 +422,17 @@
                       </span>
                       fall
                     </li>
-                    <p>
-                      White to brown cap with thick stem and distinct spicy aroma
-                    </p>
-                    </div>
-                    <div class="card__note">
-                      <strong>Important notes: </strong>
-                      Verify identification - has toxic look-alikes
-                    </div>
                   </ul>
+                  <p>
+                    White to brown cap with thick stem and distinct spicy aroma
+                  </p>
+                  </div>
+                  <div class="card__note">
+                    <strong>Important notes: </strong>
+                    Verify identification - has toxic look-alikes
+                  </div>
                 </div>
+                <h2 class="no-matches" hidden>No matches for these filters.</h2>
               </div>
             </div>
           </div>
