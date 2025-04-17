@@ -1,3 +1,8 @@
+/*makes transitioning between pages smoother, neat!*/
+@view-transition {
+  navigation: auto;
+}
+
 /*basic essentials*/
 @layer reset {
   *,

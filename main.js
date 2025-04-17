@@ -1,3 +1,5 @@
+console.log("JS is running");
+
 const navToggle = document.querySelector('[aria-controls="prime-nav"]');
 const primeNav = document.querySelector("#prime-nav");
 
