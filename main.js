@@ -16,19 +16,17 @@ function enableBurger() {
 enableBurger();
 
 //this is to prevent it showing the transition when the page resizes
-const resizeObserver = new resizeObserver(() => {
-  document.body.classList.add("resizing");
-
-  requestAnimationFrame(() => {
-    document.body.classList.remove("resizing");
-  });
+window.addEventListener("resize", () => {
+  primeNav.style.transition = "none";
 });
-resizeObserver.observe(document.body);
 
+//the activating of the dropdown menu
+//since other things nuke the transition, this adds it back
 navToggle.addEventListener("click", () => {
   primeNav.style.transition = "";
 
   const navOpened = navToggle.getAttribute("aria-expanded");
+  console.log(navOpened);
 
   if (navOpened === "false") {
     navToggle.setAttribute("aria-expanded", "true");
@@ -37,12 +35,25 @@ navToggle.addEventListener("click", () => {
   }
 });
 
+//this adds the fade-out animation to the hero, since that anim just bricks the hero in firefox
+//again, this is more of a personal project
+//if it wasn't obvious the tutorial was on chrome and I'm using firefox
+function enableHeroAnim() {
+  const hero = document.querySelector(".hero");
+
+  //this is a canIuse for css, neat!
+  if (CSS.supports("animation-timeline", "view()")) {
+    hero.classList.add("scroll-fade");
+  }
+}
+enableHeroAnim();
+
 //<select> filtering for mushroom-guide.html
 const cards = document.querySelectorAll(".mushroom-guide .card");
 const seasonalFilter = document.querySelector("#season");
 const edibleFilter = document.querySelector("#edible");
 const noResultsMessage = document.querySelector(".no-matches");
-//awesome to know I essentially have a canIuse baked into JS
+//this is a canIuse for JS, neat!
 const supportsViewTransitions = "startViewTransition" in document;
 
 //in the event of a refresh where the webpage retains the <select> value
